@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
-@Table(name = "ANACORSI")
+@Table(name = "corsi")
 public class Corso
 {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)

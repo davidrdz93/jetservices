@@ -2,16 +2,17 @@ package com.davidrdz93.jetservices.entities;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "ANASTUD")
+@Table(name = "studenti")
 public class Studente
 {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
@@ -20,7 +21,9 @@ public class Studente
     @Column(nullable = false)
     private String cognome;
 
+
     @Column(nullable = false)
+    @Size(min = 16, max = 16)
     private String cf = "";
 
     @Column
@@ -33,9 +36,11 @@ public class Studente
     private String citta = "";
 
     @Column(nullable = false)
+    @Size(min = 2, max = 2)
     private String prov = "";
 
     @Column
+    @Size(min = 5, max = 4)
     private int cap;
 
     @Column

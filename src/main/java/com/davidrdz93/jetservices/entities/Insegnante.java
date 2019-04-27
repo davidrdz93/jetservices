@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 
 @Entity
-@Table(name = "ANAINSE")
+@Table(name = "insegnanti")
 public class Insegnante
 {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)

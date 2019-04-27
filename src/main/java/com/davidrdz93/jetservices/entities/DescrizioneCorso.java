@@ -6,14 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "DESCRIZ_ANACORSI")
+@Table(name = "descrizione_corsi")
 public class DescrizioneCorso
 {
     @Column
     private String chiave;
 
     @Id
-    @Column(name = "descriz")
     private String descrizione;
 
     public String getChiave() {

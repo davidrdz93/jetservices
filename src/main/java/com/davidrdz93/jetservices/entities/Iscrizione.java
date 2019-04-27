@@ -3,25 +3,25 @@ package com.davidrdz93.jetservices.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ISCRIZ")
+@Table(name = "iscrizioni")
 public class Iscrizione
 {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "FK_STUD")
+    @JoinColumn(name = "fk_studente")
     private Studente studente;
 
     @ManyToOne
-    @JoinColumn(name = "FK_COR")
+    @JoinColumn(name = "fk_corso")
     private Corso corso;
 
 
     @ManyToOne
-    @JoinColumn(name = "FK_INSE")
+    @JoinColumn(name = "fk_insegnante")
     private Insegnante insegnante;
 
     public long getId() {

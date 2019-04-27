@@ -9,12 +9,12 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 public class User
 {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
@@ -22,6 +22,9 @@ public class User
 
     @Column(nullable = false)
     private String cognome;
+
+    @Column(nullable = false)
+    private String password;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -85,5 +88,11 @@ public class User
         this.cognome = cognome;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

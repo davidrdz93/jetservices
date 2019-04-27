@@ -7,23 +7,23 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "REGISTRL")
+@Table(name = "registro_lezioni")
 public class RegistroLezione
 {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
     private Date data;
 
     @ManyToOne
-    @JoinColumn(name = "FK_COR")
+    @JoinColumn(name = "fk_corso")
     private Corso corso;
 
     @ManyToOne
-    @JoinColumn(name = "FK_INSE")
+    @JoinColumn(name = "fk_insegnante")
     private Insegnante insegnante;
 
     @OneToMany(mappedBy = "lezione")
