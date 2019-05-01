@@ -2,7 +2,7 @@ package com.davidrdz93.jetservices.entities;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,38 +13,39 @@ public class Studente
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
+    @NotEmpty(message = "nome non valorizzato")
     private String nome;
 
     @Column(nullable = false)
+    @NotEmpty(message = "cognome non valorizzato")
     private String cognome;
 
 
-    @Column(nullable = false)
     @Size(min = 16, max = 16)
     private String cf = "";
 
     @Column
-    private long piva;
+    private Long piva;
 
-    @Column(nullable = false)
-    private String indirizzo = "";
+    @Column
+    private String indirizzo;
 
-    @Column(nullable = false)
-    private String citta = "";
+    @Column
+    private String citta;
 
-    @Column(nullable = false)
+    @Column
     @Size(min = 2, max = 2)
-    private String prov = "";
+    private String prov;
 
     @Column
-    @Size(min = 5, max = 4)
-    private int cap;
+    @Digits(integer = 5, fraction = 0)
+    private Integer cap;
 
     @Column
-    private long cell;
+    private Long cell;
 
     @Column
     private String email;
@@ -55,11 +56,11 @@ public class Studente
     @OneToMany(mappedBy = "studente")
     private List<Iscrizione> iscrizioni = new ArrayList<Iscrizione>();
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -87,11 +88,11 @@ public class Studente
         this.cf = cf;
     }
 
-    public long getPiva() {
+    public Long getPiva() {
         return piva;
     }
 
-    public void setPiva(long piva) {
+    public void setPiva(Long piva) {
         this.piva = piva;
     }
 
@@ -119,19 +120,19 @@ public class Studente
         this.prov = prov;
     }
 
-    public int getCap() {
+    public Integer getCap() {
         return cap;
     }
 
-    public void setCap(int cap) {
+    public void setCap(Integer cap) {
         this.cap = cap;
     }
 
-    public long getCell() {
+    public Long getCell() {
         return cell;
     }
 
-    public void setCell(long cell) {
+    public void setCell(Long cell) {
         this.cell = cell;
     }
 

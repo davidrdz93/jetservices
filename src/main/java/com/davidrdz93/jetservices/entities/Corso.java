@@ -26,13 +26,13 @@ public class Corso
     private String livello = "";
 
     @Column(nullable = false)
-    private int numeroOre = 0;
+    private int numeroOre;
 
     @Column(nullable = false)
-    private int quotaIscrizione = 0;
+    private int quotaIscrizione;
 
     @Column(nullable = false)
-    private int prezzoOra = 0;
+    private int prezzoOra;
 
     @Column(nullable = false)
     private Date dataInizio;
@@ -51,7 +51,6 @@ public class Corso
 
     @OneToMany(mappedBy = "corso")
     private List<Iscrizione> iscrizioni = new ArrayList<Iscrizione>();
-
 
     public long getId() {
         return id;
@@ -108,7 +107,6 @@ public class Corso
     public void setPrezzoOra(int prezzoOra) {
         this.prezzoOra = prezzoOra;
     }
-
 
     public Date getDataInizio() {
         return dataInizio;

@@ -1,19 +1,14 @@
 package com.davidrdz93.jetservices.controllers;
 
 import com.davidrdz93.jetservices.entities.Studente;
-import com.davidrdz93.jetservices.entities.User;
 import com.davidrdz93.jetservices.exceptions.NotFound404Exception;
-import com.davidrdz93.jetservices.exceptions.UsernameEsistenteException;
 import com.davidrdz93.jetservices.repositories.StudenteRepository;
-import com.davidrdz93.jetservices.repositories.UserRepository;
 import com.davidrdz93.jetservices.services.StudentiService;
-import com.davidrdz93.jetservices.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("studenti")
@@ -32,8 +27,8 @@ public class StudenteController
 
     @GetMapping
     public List<Studente> getUtenti(@RequestParam(required = false) String nome,
-                                @RequestParam(required = false) String cognome,
-                                @RequestParam(required = false) String cf)
+                                    @RequestParam(required = false) String cognome,
+                                    @RequestParam(required = false) String cf)
     {
         return this.studentiService.retrieveStudenti(nome, cognome, cf);
     }
