@@ -7,4 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudenteRepository extends CrudRepository<Studente, Long>, JpaSpecificationExecutor
-{ }
+{}

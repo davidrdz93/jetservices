@@ -1,7 +1,9 @@
 package com.davidrdz93.jetservices.services;
 
 import com.davidrdz93.jetservices.entities.Corso;
+import com.davidrdz93.jetservices.exceptions.NotFound404Exception;
 import com.davidrdz93.jetservices.repositories.CorsoRepository;
+import com.davidrdz93.jetservices.repositories.RegistroLezioneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -18,11 +20,14 @@ import java.util.List;
 public class CorsoServiceImp implements CorsoService
 {
     private CorsoRepository corsoRepository;
+    private RegistroLezioneRepository registroLezioneRepository;
 
     @Autowired
-    public CorsoServiceImp(CorsoRepository corsoRepository)
+    public CorsoServiceImp(CorsoRepository corsoRepository,
+                           RegistroLezioneRepository registroLezioneRepository)
     {
         this.corsoRepository = corsoRepository;
+        this.registroLezioneRepository = registroLezioneRepository;
     }
 
     @Override
@@ -82,5 +87,20 @@ public class CorsoServiceImp implements CorsoService
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         });
+    }
+
+    @Override
+    public double oreResidue(Long corsoId)
+    {
+
+        double oreTotali = this.corsoRepository.findById(corsoId)
+                .map(Corso::getNumeroOre)
+                .orElseThrow(() -> new NotFound404Exception());
+
+        double oreConsumate = this.registroLezioneRepository.findByCorsoId(corsoId)
+                .map(registroLezione -> registroLezione.getOre() + ((double) registroLezione.getMinuti())/60)
+                .orElse(0d);
+
+        return oreTotali - oreConsumate;
     }
 }

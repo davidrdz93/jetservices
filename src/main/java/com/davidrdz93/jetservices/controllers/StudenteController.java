@@ -72,4 +72,10 @@ public class StudenteController
         studenteRepository.deleteById(id);
     }
 
+    @GetMapping("/iscritti/{idCorso}")
+    public List<Studente> getStudentiByCorsoId(@PathVariable Long idCorso)
+    {
+        return this.studentiService.findIscrittiByCorsoId(idCorso);
+    }
+
 }

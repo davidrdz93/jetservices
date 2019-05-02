@@ -1,6 +1,9 @@
 package com.davidrdz93.jetservices.services;
 
+import com.davidrdz93.jetservices.entities.Iscrizione;
 import com.davidrdz93.jetservices.entities.Studente;
+import com.davidrdz93.jetservices.exceptions.NotFound404Exception;
+import com.davidrdz93.jetservices.repositories.IscrizioneRepository;
 import com.davidrdz93.jetservices.repositories.StudenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -12,16 +15,20 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component(value = "mainStudentiImp")
 public class StudentiServiceImp implements StudentiService
 {
     private StudenteRepository studenteRepository;
+    private IscrizioneRepository iscrizioneRepository;
 
     @Autowired
-    public StudentiServiceImp(StudenteRepository studenteRepository)
+    public StudentiServiceImp(StudenteRepository studenteRepository,
+                              IscrizioneRepository iscrizioneRepository)
     {
         this.studenteRepository = studenteRepository;
+        this.iscrizioneRepository = iscrizioneRepository;
     }
 
 
@@ -48,5 +55,18 @@ public class StudentiServiceImp implements StudentiService
         });
 
 
+    }
+
+    @Override
+    public List<Studente> findIscrittiByCorsoId(Long idCorso)
+    {
+        List<Studente> studenti = new ArrayList<Studente>();
+
+        this.iscrizioneRepository.findByCorsoId(idCorso)
+                .filter(Iscrizione::getAttivo)
+                .map(iscrizione -> studenti.add(iscrizione.getStudente()))
+                .orElseThrow(() -> new NotFound404Exception());
+
+        return studenti;
     }
 }

@@ -16,4 +16,6 @@ public interface CorsoService
                               Date dataFineDa,
                               Date dataFineA,
                               boolean completato);
+
+    double oreResidue(Long corsoId);
 }

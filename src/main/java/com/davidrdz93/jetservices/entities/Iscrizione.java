@@ -9,7 +9,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "iscrizioni")
+@Table(name = "iscrizioni",
+       uniqueConstraints = @UniqueConstraint(columnNames = {"fk_corso", "fk_studente"}))
 public class Iscrizione
 {
     @Id

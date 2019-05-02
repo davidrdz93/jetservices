@@ -35,4 +35,12 @@ public class Presenza
     public void setStudente(Studente studente) {
         this.studente = studente;
     }
+
+    public RegistroLezione getLezione() {
+        return lezione;
+    }
+
+    public void setLezione(RegistroLezione lezione) {
+        this.lezione = lezione;
+    }
 }

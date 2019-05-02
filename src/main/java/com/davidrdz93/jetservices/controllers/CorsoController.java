@@ -81,4 +81,10 @@ public class CorsoController
     {
         this.corsoRepository.deleteById(id);
     }
+
+    @GetMapping("/{id}/oreResidue")
+    public double getOreResidue(@PathVariable Long id)
+    {
+        return this.corsoService.oreResidue(id);
+    }
 }
