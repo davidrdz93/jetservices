@@ -12,7 +12,6 @@ public class Presenza
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
     @ManyToOne
     @JoinColumn(name = "fk_lezione")
     private RegistroLezione lezione;

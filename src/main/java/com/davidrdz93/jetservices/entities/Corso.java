@@ -2,9 +2,6 @@ package com.davidrdz93.jetservices.entities;
 
 
 import javax.persistence.*;
-
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -45,12 +42,6 @@ public class Corso
 
     @Column(nullable = false)
     private boolean individuale = false;
-
-    @OneToMany(mappedBy = "corso")
-    private List<RegistroLezione> lezioni = new ArrayList<RegistroLezione>();
-
-    @OneToMany(mappedBy = "corso")
-    private List<Iscrizione> iscrizioni = new ArrayList<Iscrizione>();
 
     public long getId() {
         return id;
@@ -140,19 +131,4 @@ public class Corso
         this.individuale = individuale;
     }
 
-    public List<RegistroLezione> getLezioni() {
-        return lezioni;
-    }
-
-    public void setLezioni(List<RegistroLezione> lezioni) {
-        this.lezioni = lezioni;
-    }
-
-    public List<Iscrizione> getIscrizioni() {
-        return iscrizioni;
-    }
-
-    public void setIscrizioni(List<Iscrizione> iscrizioni) {
-        this.iscrizioni = iscrizioni;
-    }
 }

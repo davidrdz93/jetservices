@@ -1,6 +1,12 @@
 package com.davidrdz93.jetservices.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "iscrizioni")
@@ -11,18 +17,29 @@ public class Iscrizione
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_studente")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_studente", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Studente studente;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_corso")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_corso", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Corso corso;
 
-
-    @ManyToOne
-    @JoinColumn(name = "fk_insegnante")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_insegnante", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Insegnante insegnante;
+
+    @Column(nullable = false)
+    private Date dataIscrizione;
+
+    @Column
+    private Date dataFineValidita;
+
+    @Column
+    private Boolean attivo = true;
 
     public long getId() {
         return id;
@@ -54,5 +71,29 @@ public class Iscrizione
 
     public void setInsegnante(Insegnante insegnante) {
         this.insegnante = insegnante;
+    }
+
+    public Date getDataIscrizione() {
+        return dataIscrizione;
+    }
+
+    public Date getDataFineValidita() {
+        return dataFineValidita;
+    }
+
+    public void setDataFineValidita(Date dataFineValidita) {
+        this.dataFineValidita = dataFineValidita;
+    }
+
+    public void setDataIscrizione(Date dataIscrizione) {
+        this.dataIscrizione = dataIscrizione;
+    }
+
+    public Boolean getAttivo() {
+        return attivo;
+    }
+
+    public void setAttivo(Boolean attivo) {
+        this.attivo = attivo;
     }
 }

@@ -3,8 +3,6 @@ package com.davidrdz93.jetservices.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "studenti")
@@ -22,7 +20,6 @@ public class Studente
     @Column(nullable = false)
     @NotEmpty(message = "cognome non valorizzato")
     private String cognome;
-
 
     @Size(min = 16, max = 16)
     private String cf = "";
@@ -49,12 +46,6 @@ public class Studente
 
     @Column
     private String email;
-
-    @OneToMany(mappedBy = "studente")
-    private List<Presenza> presenze = new ArrayList<Presenza>();
-
-    @OneToMany(mappedBy = "studente")
-    private List<Iscrizione> iscrizioni = new ArrayList<Iscrizione>();
 
     public Long getId() {
         return id;
@@ -142,21 +133,5 @@ public class Studente
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<Presenza> getPresenze() {
-        return presenze;
-    }
-
-    public void setPresenze(List<Presenza> presenze) {
-        this.presenze = presenze;
-    }
-
-    public List<Iscrizione> getIscrizioni() {
-        return iscrizioni;
-    }
-
-    public void setIscrizioni(List<Iscrizione> iscrizioni) {
-        this.iscrizioni = iscrizioni;
     }
 }

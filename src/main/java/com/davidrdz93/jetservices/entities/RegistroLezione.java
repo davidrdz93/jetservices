@@ -3,8 +3,6 @@ package com.davidrdz93.jetservices.entities;
 import java.util.Date;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "registro_lezioni")
@@ -26,8 +24,11 @@ public class RegistroLezione
     @JoinColumn(name = "fk_insegnante")
     private Insegnante insegnante;
 
-    @OneToMany(mappedBy = "lezione")
-    private List<Presenza> presenze = new ArrayList<Presenza>();
+    @Column
+    private int ore;
+
+    @Column
+    private int minuti;
 
     public long getId() {
         return id;
@@ -61,11 +62,19 @@ public class RegistroLezione
         this.insegnante = insegnante;
     }
 
-    public List<Presenza> getPresenze() {
-        return presenze;
+    public int getOre() {
+        return ore;
     }
 
-    public void setPresenze(List<Presenza> presenze) {
-        this.presenze = presenze;
+    public void setOre(int ore) {
+        this.ore = ore;
+    }
+
+    public int getMinuti() {
+        return minuti;
+    }
+
+    public void setMinuti(int minuti) {
+        this.minuti = minuti;
     }
 }

@@ -53,7 +53,7 @@ public class InsegnanteController
                                        @PathVariable Long id)
     {
         return this.insegnanteRepository.findById(id)
-                .map(insegnante -> {
+                .map((Insegnante insegnante) -> {
                     insegnante.setNome(updatedInsegnante.getNome());
                     insegnante.setCognome(updatedInsegnante.getCognome());
                     insegnante.setEmail(updatedInsegnante.getEmail());
