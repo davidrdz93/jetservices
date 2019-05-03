@@ -34,7 +34,7 @@ public class Corso
     @Column(nullable = false)
     private Date dataInizio;
 
-    @Column(nullable = false)
+    @Column
     private Date dataFine;
 
     @Column(nullable = false)

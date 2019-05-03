@@ -1,6 +1,7 @@
 package com.davidrdz93.jetservices.services;
 
 import com.davidrdz93.jetservices.entities.Corso;
+import com.davidrdz93.jetservices.entities.RegistroLezione;
 import com.davidrdz93.jetservices.exceptions.NotFound404Exception;
 import com.davidrdz93.jetservices.repositories.CorsoRepository;
 import com.davidrdz93.jetservices.repositories.RegistroLezioneRepository;
@@ -92,14 +93,17 @@ public class CorsoServiceImp implements CorsoService
     @Override
     public double oreResidue(Long corsoId)
     {
-
+        double oreConsumate = 0d;
         double oreTotali = this.corsoRepository.findById(corsoId)
                 .map(Corso::getNumeroOre)
                 .orElseThrow(() -> new NotFound404Exception());
 
-        double oreConsumate = this.registroLezioneRepository.findByCorsoId(corsoId)
-                .map(registroLezione -> registroLezione.getOre() + ((double) registroLezione.getMinuti())/60)
-                .orElse(0d);
+        List<RegistroLezione> lezioni = this.registroLezioneRepository.findByCorsoId(corsoId);
+
+        for (RegistroLezione registroLezione: lezioni)
+            oreConsumate += registroLezione.getOre() + ((double) registroLezione.getMinuti())/60;
+
+        oreConsumate = Math.round(oreConsumate*100d)/100d; // arrotondo a due decimali
 
         return oreTotali - oreConsumate;
     }

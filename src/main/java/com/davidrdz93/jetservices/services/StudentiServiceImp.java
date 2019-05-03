@@ -61,11 +61,13 @@ public class StudentiServiceImp implements StudentiService
     public List<Studente> findIscrittiByCorsoId(Long idCorso)
     {
         List<Studente> studenti = new ArrayList<Studente>();
+        List<Iscrizione> iscrizioni = new ArrayList<Iscrizione>();
 
-        this.iscrizioneRepository.findByCorsoId(idCorso)
+        iscrizioni = this.iscrizioneRepository.findByCorsoId(idCorso);
+        iscrizioni
+                .stream()
                 .filter(Iscrizione::getAttivo)
-                .map(iscrizione -> studenti.add(iscrizione.getStudente()))
-                .orElseThrow(() -> new NotFound404Exception());
+                .forEach(iscrizione -> studenti.add(iscrizione.getStudente()));
 
         return studenti;
     }
