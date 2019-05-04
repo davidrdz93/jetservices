@@ -1,5 +1,8 @@
 package com.davidrdz93.jetservices.entities;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.Date;
 
 import javax.persistence.*;
@@ -18,10 +21,12 @@ public class RegistroLezione
 
     @ManyToOne
     @JoinColumn(name = "fk_corso")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Corso corso;
 
     @ManyToOne
     @JoinColumn(name = "fk_insegnante")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Insegnante insegnante;
 
     @Column

@@ -6,6 +6,7 @@ import com.davidrdz93.jetservices.repositories.IscrizioneRepository;
 import com.davidrdz93.jetservices.services.IscrizioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -31,8 +32,8 @@ public class IscrizioneController
     public List<Iscrizione> getIscrizioni(@RequestParam(required = false) Long idCorso,
                                           @RequestParam(required = false) Long idInsegnante,
                                           @RequestParam(required = false) Long idStudente,
-                                          @RequestParam(required = false) Date dataIscrizioneDa,
-                                          @RequestParam(required = false) Date dataIscrizioneA,
+                                          @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataIscrizioneDa,
+                                          @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataIscrizioneA,
                                           @RequestParam(required = false) Boolean attivo)
     {
         System.out.println("Almeno sono al controller");

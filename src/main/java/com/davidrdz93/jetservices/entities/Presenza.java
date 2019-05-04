@@ -1,5 +1,8 @@
 package com.davidrdz93.jetservices.entities;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,10 +17,12 @@ public class Presenza
 
     @ManyToOne
     @JoinColumn(name = "fk_lezione")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private RegistroLezione lezione;
 
     @ManyToOne
     @JoinColumn(name = "fk_studente")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Studente studente;
 
     public long getId() {

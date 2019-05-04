@@ -6,6 +6,7 @@ import com.davidrdz93.jetservices.repositories.CorsoRepository;
 import com.davidrdz93.jetservices.services.CorsoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,10 +32,10 @@ public class CorsoController
     public List<Corso> getCorsi(@RequestParam(required = false) String nome,
                                 @RequestParam(required = false) String lingua,
                                 @RequestParam(required = false) String livello,
-                                @RequestParam(required = false) Date dataInizioDa,
-                                @RequestParam(required = false) Date dataInizioA,
-                                @RequestParam(required = false) Date dataFineDa,
-                                @RequestParam(required = false) Date dataFineA,
+                                @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInizioDa,
+                                @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInizioA,
+                                @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataFineDa,
+                                @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataFineA,
                                 @RequestParam(required = false) boolean completato)
 
 

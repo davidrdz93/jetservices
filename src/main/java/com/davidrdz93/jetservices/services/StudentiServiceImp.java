@@ -2,12 +2,11 @@ package com.davidrdz93.jetservices.services;
 
 import com.davidrdz93.jetservices.entities.Iscrizione;
 import com.davidrdz93.jetservices.entities.Studente;
-import com.davidrdz93.jetservices.exceptions.NotFound404Exception;
 import com.davidrdz93.jetservices.repositories.IscrizioneRepository;
 import com.davidrdz93.jetservices.repositories.StudenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component(value = "mainStudentiImp")
+@Service(value = "mainStudentiImp")
 public class StudentiServiceImp implements StudentiService
 {
     private StudenteRepository studenteRepository;
