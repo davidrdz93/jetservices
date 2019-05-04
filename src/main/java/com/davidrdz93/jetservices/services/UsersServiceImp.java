@@ -4,7 +4,7 @@ import com.davidrdz93.jetservices.entities.User;
 import com.davidrdz93.jetservices.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,9 +12,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-@Component(value = "mainUsersImp")
+
+@Service(value = "mainUsersImp")
 public class UsersServiceImp implements UserService
 {
     private UserRepository userRepository;

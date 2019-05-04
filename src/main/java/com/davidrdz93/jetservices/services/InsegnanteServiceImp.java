@@ -4,7 +4,7 @@ import com.davidrdz93.jetservices.entities.Insegnante;
 import com.davidrdz93.jetservices.repositories.InsegnanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component(value = "mainInsegnanteImp")
+@Service(value = "mainInsegnanteImp")
 public class InsegnanteServiceImp implements InsegnanteService
 {
 

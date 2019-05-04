@@ -7,7 +7,7 @@ import com.davidrdz93.jetservices.repositories.CorsoRepository;
 import com.davidrdz93.jetservices.repositories.RegistroLezioneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Component(value = "mainCorsoImp")
+@Service(value = "mainCorsoImp")
 public class CorsoServiceImp implements CorsoService
 {
     private CorsoRepository corsoRepository;

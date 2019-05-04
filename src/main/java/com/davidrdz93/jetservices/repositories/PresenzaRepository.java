@@ -13,4 +13,6 @@ public interface PresenzaRepository extends CrudRepository<Presenza, Long>
     Optional<List<Presenza>> findByLezioneId(Long idRegistroLezione);
 
     void deletePresenzaByLezioneIdAndStudenteId(Long lezioneId, Long StudenteId);
+
+    void deletePresenzaByLezioneId(Long idLezione);
 }
