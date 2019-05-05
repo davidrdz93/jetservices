@@ -15,9 +15,14 @@ import java.util.Optional;
 @Service
 public class TokenAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider
 {
-    @Autowired
-    @Qualifier("jwt")
+
     private UtenteAuthenticationService utenteAuthenticationService;
+
+    @Autowired
+    public TokenAuthenticationProvider(@Qualifier("jwt") UtenteAuthenticationService utenteAuthenticationService)
+    {
+        this.utenteAuthenticationService = utenteAuthenticationService;
+    }
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException

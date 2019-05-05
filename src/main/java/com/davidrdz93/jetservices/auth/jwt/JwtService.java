@@ -26,13 +26,13 @@ public class JwtService implements JwtAuth
 
     }
 
-    public String create(String email)
+    public String create(String username)
     {
         Instant issuedAt = Instant.now();
         return JWT.create()
                 .withIssuedAt(Date.from(issuedAt))
                 .withExpiresAt(Date.from(issuedAt.plusSeconds(defaultExpiration)))
-                .withClaim("email", email)
+                .withClaim("username", username)
                 .sign(algorithm);
     }
 

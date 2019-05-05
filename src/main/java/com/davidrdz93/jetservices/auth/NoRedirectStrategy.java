@@ -18,10 +18,6 @@ public class NoRedirectStrategy implements RedirectStrategy
      *
      * In caso di credenziali errate il server dovrà restituire un errore 401
      * di conseguenza questo metodo non dovrà fare nulla
-     *
-     * @todo url è "/" di default quindi c'è la redirect a questa url
-     * @todo di conseguenza il controller non viene eseguito
-     * @todo
      */
     @Override
     public void sendRedirect(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String url) throws IOException

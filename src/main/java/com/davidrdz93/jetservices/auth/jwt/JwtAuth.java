@@ -9,10 +9,10 @@ public interface JwtAuth
      * Crea un JWT da un username
      *
      * @author David Rodriguez
-     * @param email Email dal quale creare il token
+     * @param username Utente dal quale creare il token
      * @return token assegnato
      */
-    String create(String email);
+    String create(String username);
 
     /**
      * Decodifica un JWT

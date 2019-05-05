@@ -7,19 +7,24 @@ import com.davidrdz93.jetservices.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Component(value = "jwt")
+@Service(value = "jwt")
 public class JwtAuthenticationService implements UtenteAuthenticationService
 {
-    @Autowired
+
     private UserRepository userRepository;
+    private JwtAuth jwtAuth;
 
     @Autowired
-    private JwtAuth jwtAuth;
+    public JwtAuthenticationService(UserRepository userRepository,
+                                    JwtAuth jwtAuth)
+    {
+        this.userRepository = userRepository;
+        this.jwtAuth = jwtAuth;
+    }
 
     /**
      * @author David Rodriguez
@@ -33,7 +38,7 @@ public class JwtAuthenticationService implements UtenteAuthenticationService
         return userRepository.findByUsername(username)
                 .filter(utente ->  utente.getPassword().equals(password))
                 .map(utente -> jwtAuth.create(username))
-                .orElseThrow(() -> new BadCredentialsException("email o password non validi"));
+                .orElseThrow(() -> new BadCredentialsException("utente o password errati"));
     }
 
     /**
@@ -47,7 +52,7 @@ public class JwtAuthenticationService implements UtenteAuthenticationService
     {
         try
         {
-            Object username = jwtAuth.verify(token).get("email");
+            Object username = jwtAuth.verify(token).get("username");
             return Optional.ofNullable(username)
                     .flatMap(nome -> userRepository.findByUsername(String.valueOf(nome)))
                     .orElseThrow(() -> new BadCredentialsException("Utente " + username + " no trovato"));
@@ -60,11 +65,11 @@ public class JwtAuthenticationService implements UtenteAuthenticationService
 
     /**
      * @author David Rodriguez
-     * @param email Email utente da deautenticare
+     * @param username Utente da deautenticare
      * Non esiste un modo diretto per disabilitare token rilasciati ad un utente.
      * Per logout invalidare (eliminare) il token lato client
      */
     @Override
-    public void logout(String email)
+    public void logout(String username)
     { }
 }
