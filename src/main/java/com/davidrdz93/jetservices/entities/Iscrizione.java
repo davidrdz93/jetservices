@@ -1,6 +1,5 @@
 package com.davidrdz93.jetservices.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,8 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "iscrizioni",
-       uniqueConstraints = @UniqueConstraint(columnNames = {"fk_corso", "fk_studente"}))
+@Table(name = "iscrizioni")
 public class Iscrizione
 {
     @Id
@@ -34,13 +32,16 @@ public class Iscrizione
     private Insegnante insegnante;
 
     @Column(nullable = false)
+    private double quotaIscrizione = 0;
+
+    @Column(nullable = false)
+    private int prezzoOra = 0;
+
+    @Column(nullable = false)
     private Date dataIscrizione;
 
     @Column
     private Date dataFineValidita;
-
-    @Column
-    private Boolean attivo = true;
 
     public long getId() {
         return id;
@@ -74,8 +75,28 @@ public class Iscrizione
         this.insegnante = insegnante;
     }
 
+    public double getQuotaIscrizione() {
+        return quotaIscrizione;
+    }
+
+    public void setQuotaIscrizione(double quotaIscrizione) {
+        this.quotaIscrizione = quotaIscrizione;
+    }
+
+    public int getPrezzoOra() {
+        return prezzoOra;
+    }
+
+    public void setPrezzoOra(int prezzoOra) {
+        this.prezzoOra = prezzoOra;
+    }
+
     public Date getDataIscrizione() {
         return dataIscrizione;
+    }
+
+    public void setDataIscrizione(Date dataIscrizione) {
+        this.dataIscrizione = dataIscrizione;
     }
 
     public Date getDataFineValidita() {
@@ -86,15 +107,6 @@ public class Iscrizione
         this.dataFineValidita = dataFineValidita;
     }
 
-    public void setDataIscrizione(Date dataIscrizione) {
-        this.dataIscrizione = dataIscrizione;
-    }
 
-    public Boolean getAttivo() {
-        return attivo;
-    }
 
-    public void setAttivo(Boolean attivo) {
-        this.attivo = attivo;
-    }
 }

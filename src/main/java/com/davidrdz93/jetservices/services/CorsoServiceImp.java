@@ -14,7 +14,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service(value = "mainCorsoImp")
@@ -34,12 +33,7 @@ public class CorsoServiceImp implements CorsoService
     @Override
     public List<Corso> retrieveCorsi(String nome,
                                      String lingua,
-                                     String livello,
-                                     Date dataInizioDa,
-                                     Date dataInizioA,
-                                     Date dataFineDa,
-                                     Date dataFineA,
-                                     boolean completato)
+                                     String livello)
     {
         return this.corsoRepository.findAll(new Specification<Corso>(){
             @Override
@@ -55,35 +49,6 @@ public class CorsoServiceImp implements CorsoService
 
                 if (livello != null && !livello.equals(""))
                     predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("livello"), "%" + livello + "%")));
-
-                if (dataInizioA != null || dataInizioDa != null)
-                {
-                    if (dataInizioDa != null && dataInizioA == null)
-                        predicates.add(criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("dataInizio"), dataInizioDa)));
-
-                    else if (dataInizioDa == null && dataInizioA != null)
-                        predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("dataInizio"), dataInizioA)));
-
-                    else
-                        predicates.add(criteriaBuilder.and(criteriaBuilder.between(root.get("dataInizio"), dataInizioDa, dataInizioA)));
-                }
-
-                if (dataFineDa != null || dataFineA != null)
-                {
-                    if (dataFineDa != null && dataFineA == null)
-                        predicates.add(criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("dataFine"), dataFineDa)));
-
-                    else if (dataFineDa == null && dataFineA != null)
-                        predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("dataFine"), dataFineA)));
-
-                    else
-                        predicates.add(criteriaBuilder.and(criteriaBuilder.between(root.get("dataFine"), dataFineDa, dataFineA)));
-                }
-
-                if (completato)
-                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("complete"), true)));
-                else
-                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("complete"), false)));
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }

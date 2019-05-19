@@ -33,7 +33,8 @@ public class IscrizioneServiceImp implements IscrizioneService
                                           Long idStudente,
                                           Date dataIscrizioneDa,
                                           Date dateIscrizioneA,
-                                          Boolean attivo)
+                                          Date dataIscrizioneFineDa,
+                                          Date dateIscrizioneFineA)
     {
         return this.iscrizioneRepository.findAll(new Specification<Iscrizione>() {
             @Override
@@ -51,12 +52,6 @@ public class IscrizioneServiceImp implements IscrizioneService
                 if (idStudente != null)
                     predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("studente"), idStudente)));
 
-                if (attivo != null && attivo)
-                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("attivo"), true)));
-                else
-                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("attivo"), false)));
-
-
                 if (dataIscrizioneDa != null || dateIscrizioneA != null)
                 {
                     if (dataIscrizioneDa != null && dateIscrizioneA == null)
@@ -67,6 +62,18 @@ public class IscrizioneServiceImp implements IscrizioneService
 
                     else
                         predicates.add(criteriaBuilder.and(criteriaBuilder.between(root.get("dataIscrizione"), dataIscrizioneDa, dateIscrizioneA)));
+                }
+
+                if (dataIscrizioneFineDa != null || dateIscrizioneFineA != null)
+                {
+                    if (dataIscrizioneFineDa != null && dateIscrizioneFineA == null)
+                        predicates.add(criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("dataFineValidita"), dataIscrizioneFineDa)));
+
+                    else if (dataIscrizioneFineDa == null && dateIscrizioneFineA != null)
+                        predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("dataFineValidita"), dateIscrizioneFineA)));
+
+                    else
+                        predicates.add(criteriaBuilder.and(criteriaBuilder.between(root.get("dataFineValidita"), dataIscrizioneFineDa, dateIscrizioneFineA)));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

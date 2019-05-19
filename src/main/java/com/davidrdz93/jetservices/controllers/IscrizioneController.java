@@ -1,8 +1,10 @@
 package com.davidrdz93.jetservices.controllers;
 
 import com.davidrdz93.jetservices.entities.Iscrizione;
+import com.davidrdz93.jetservices.entities.RateCorsi;
 import com.davidrdz93.jetservices.exceptions.NotFound404Exception;
 import com.davidrdz93.jetservices.repositories.IscrizioneRepository;
+import com.davidrdz93.jetservices.repositories.RateCorsiRepository;
 import com.davidrdz93.jetservices.services.IscrizioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,13 +21,16 @@ public class IscrizioneController
 
     private IscrizioneRepository iscrizioneRepository;
     private IscrizioneService iscrizioneService;
+    private RateCorsiRepository rateCorsiRepository;
 
     @Autowired
     public IscrizioneController(IscrizioneRepository iscrizioneRepository,
-                                @Qualifier("mainIscrizioneImp") IscrizioneService iscrizioneService)
+                                @Qualifier("mainIscrizioneImp") IscrizioneService iscrizioneService,
+                                RateCorsiRepository rateCorsiRepository)
     {
         this.iscrizioneRepository = iscrizioneRepository;
         this.iscrizioneService = iscrizioneService;
+        this.rateCorsiRepository = rateCorsiRepository;
     }
 
     @GetMapping
@@ -34,15 +39,16 @@ public class IscrizioneController
                                           @RequestParam(required = false) Long idStudente,
                                           @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataIscrizioneDa,
                                           @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataIscrizioneA,
-                                          @RequestParam(required = false) Boolean attivo)
+                                          @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataFineIscrizioneDa,
+                                          @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataFineIscrizioneA)
     {
-        System.out.println("Almeno sono al controller");
         return this.iscrizioneService.getIscrizioni(idCorso,
                                                     idInsegnante,
                                                     idStudente,
                                                     dataIscrizioneDa,
                                                     dataIscrizioneA,
-                                                    attivo);
+                                                    dataFineIscrizioneDa,
+                                                    dataFineIscrizioneA);
     }
 
     @PostMapping
@@ -55,7 +61,14 @@ public class IscrizioneController
     public Iscrizione getIscrizione(@PathVariable Long id)
     {
         return this.iscrizioneRepository.findById(id)
-                .orElseThrow(() -> new NotFound404Exception());
+                .orElseThrow(NotFound404Exception::new);
+    }
+
+    @GetMapping("/{id}/rate")
+    public List<RateCorsi> getRateByIscrizioneId(@PathVariable Long id)
+    {
+        return this.rateCorsiRepository.findAllByIscrizioneId(id)
+                .orElseThrow(NotFound404Exception::new);
     }
 
     @PutMapping("/{id}")
@@ -66,11 +79,12 @@ public class IscrizioneController
         return this.iscrizioneRepository.findById(id)
                 .map((Iscrizione iscrizione) -> {
                     iscrizione.setDataIscrizione(updatedIscrizione.getDataIscrizione());
-                    iscrizione.setAttivo(updatedIscrizione.getAttivo());
                     iscrizione.setDataFineValidita(updatedIscrizione.getDataFineValidita());
+                    iscrizione.setPrezzoOra(updatedIscrizione.getPrezzoOra());
+                    iscrizione.setQuotaIscrizione(updatedIscrizione.getQuotaIscrizione());
                     return this.iscrizioneRepository.save(iscrizione);
                 })
-                .orElseThrow(() -> new NotFound404Exception());
+                .orElseThrow(NotFound404Exception::new);
     }
 
     @DeleteMapping("/{id}")

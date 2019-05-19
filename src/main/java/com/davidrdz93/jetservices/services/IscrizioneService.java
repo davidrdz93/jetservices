@@ -14,5 +14,6 @@ public interface IscrizioneService
                                    Long idStudente,
                                    Date dataIscrizioneDa,
                                    Date dateIscrizioneA,
-                                   Boolean attivo);
+                                   Date dataIscrizioneFineDa,
+                                   Date dateIscrizioneFineA);
 }

@@ -2,15 +2,14 @@ package com.davidrdz93.jetservices.controllers;
 
 import com.davidrdz93.jetservices.entities.Corso;
 import com.davidrdz93.jetservices.exceptions.NotFound404Exception;
+import com.davidrdz93.jetservices.models.Livelli;
 import com.davidrdz93.jetservices.repositories.CorsoRepository;
 import com.davidrdz93.jetservices.services.CorsoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Date;
 
 @RestController
 @RequestMapping("corsi")
@@ -31,17 +30,12 @@ public class CorsoController
     @GetMapping
     public List<Corso> getCorsi(@RequestParam(required = false) String nome,
                                 @RequestParam(required = false) String lingua,
-                                @RequestParam(required = false) String livello,
-                                @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInizioDa,
-                                @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataInizioA,
-                                @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataFineDa,
-                                @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dataFineA,
-                                @RequestParam(required = false) boolean completato)
+                                @RequestParam(required = false) String livello)
 
 
     {
 
-        return this.corsoService.retrieveCorsi(nome, lingua, livello, dataInizioDa, dataInizioA, dataFineDa, dataFineA, completato);
+        return this.corsoService.retrieveCorsi(nome, lingua, livello);
     }
 
     @PostMapping
@@ -62,16 +56,10 @@ public class CorsoController
     {
         return this.corsoRepository.findById(id)
                 .map(corso -> {
-                    corso.setComplete(corsoUpdated.isComplete());
-                    corso.setDataInizio(corsoUpdated.getDataInizio());
-                    corso.setDataFine(corsoUpdated.getDataFine());
-                    corso.setIndividuale(corsoUpdated.isIndividuale());
                     corso.setLingua(corsoUpdated.getLingua());
                     corso.setLivello(corsoUpdated.getLivello());
                     corso.setNome(corsoUpdated.getNome());
                     corso.setNumeroOre(corsoUpdated.getNumeroOre());
-                    corso.setPrezzoOra(corsoUpdated.getPrezzoOra());
-                    corso.setQuotaIscrizione(corsoUpdated.getQuotaIscrizione());
                     return this.corsoRepository.save(corso);
                 })
                 .orElseThrow(() -> new NotFound404Exception());
@@ -87,5 +75,11 @@ public class CorsoController
     public double getOreResidue(@PathVariable Long id)
     {
         return this.corsoService.oreResidue(id);
+    }
+
+    @GetMapping("/livelli")
+    public Livelli getLivelli()
+    {
+        return new Livelli();
     }
 }

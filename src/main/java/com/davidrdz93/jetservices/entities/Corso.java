@@ -2,7 +2,6 @@ package com.davidrdz93.jetservices.entities;
 
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "corsi")
@@ -24,24 +23,6 @@ public class Corso
 
     @Column(nullable = false)
     private int numeroOre;
-
-    @Column(nullable = false)
-    private int quotaIscrizione;
-
-    @Column(nullable = false)
-    private int prezzoOra;
-
-    @Column(nullable = false)
-    private Date dataInizio;
-
-    @Column
-    private Date dataFine;
-
-    @Column(nullable = false)
-    private boolean complete = false;
-
-    @Column(nullable = false)
-    private boolean individuale = false;
 
     public long getId() {
         return id;
@@ -81,54 +62,6 @@ public class Corso
 
     public void setNumeroOre(int numeroOre) {
         this.numeroOre = numeroOre;
-    }
-
-    public int getQuotaIscrizione() {
-        return quotaIscrizione;
-    }
-
-    public void setQuotaIscrizione(int quotaIscrizione) {
-        this.quotaIscrizione = quotaIscrizione;
-    }
-
-    public int getPrezzoOra() {
-        return prezzoOra;
-    }
-
-    public void setPrezzoOra(int prezzoOra) {
-        this.prezzoOra = prezzoOra;
-    }
-
-    public Date getDataInizio() {
-        return dataInizio;
-    }
-
-    public void setDataInizio(Date dataInizio) {
-        this.dataInizio = dataInizio;
-    }
-
-    public Date getDataFine() {
-        return dataFine;
-    }
-
-    public void setDataFine(Date dataFine) {
-        this.dataFine = dataFine;
-    }
-
-    public boolean isComplete() {
-        return complete;
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
-    }
-
-    public boolean isIndividuale() {
-        return individuale;
-    }
-
-    public void setIndividuale(boolean individuale) {
-        this.individuale = individuale;
     }
 
 }

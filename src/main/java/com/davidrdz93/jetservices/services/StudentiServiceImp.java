@@ -65,7 +65,7 @@ public class StudentiServiceImp implements StudentiService
         iscrizioni = this.iscrizioneRepository.findByCorsoId(idCorso);
         iscrizioni
                 .stream()
-                .filter(Iscrizione::getAttivo)
+                .filter(iscrizione -> iscrizione.getDataFineValidita() == null)
                 .forEach(iscrizione -> studenti.add(iscrizione.getStudente()));
 
         return studenti;
