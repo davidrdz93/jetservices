@@ -9,4 +9,6 @@ public interface RateCorsiService
 {
     List<RateCorsi> getRateCorsi(Date dataScadenzaDa,
                                  Date dataScadenzaA);
+
+    List<RateCorsi> getRateCorsiScadute();
 }

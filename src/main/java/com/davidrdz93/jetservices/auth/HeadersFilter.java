@@ -18,6 +18,8 @@ public class HeadersFilter extends OncePerRequestFilter
         if (!response.containsHeader("Access-Control-Allow-Origin"))
             response.addHeader("Access-Control-Allow-Origin", "*");
 
+        response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
+
         filterChain.doFilter(request, response);
     }
 }
