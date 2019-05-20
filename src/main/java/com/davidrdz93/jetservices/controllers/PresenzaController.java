@@ -33,7 +33,14 @@ public class PresenzaController
     public List<Presenza> getPresenzaByRegistroId(@PathVariable Long id)
     {
         return this.presenzaRepository.findByLezioneId(id)
-                .orElseThrow(() -> new NotFound404Exception());
+                .orElseThrow(NotFound404Exception::new);
+    }
+
+    @GetMapping("/studente/{id}")
+    public List<Presenza> getPresenzeByStudenteId(@PathVariable Long id)
+    {
+        return this.presenzaRepository.findByStudenteId(id)
+                .orElseThrow(NotFound404Exception::new);
     }
 
     @PatchMapping("/registro/{id}")

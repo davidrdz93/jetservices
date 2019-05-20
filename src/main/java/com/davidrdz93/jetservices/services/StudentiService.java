@@ -9,4 +9,6 @@ public interface StudentiService
     List<Studente> retrieveStudenti(String nome, String cognome, String cf);
 
     List<Studente> findIscrittiByCorsoId(Long idCorso);
+
+    List<Studente> findStudentiByNomeCognome(String nomeCognome);
 }

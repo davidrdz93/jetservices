@@ -43,7 +43,7 @@ public class StudenteController
     public Studente getStudente(@PathVariable Long id)
     {
         return studenteRepository.findById(id)
-                .orElseThrow(() -> new NotFound404Exception());
+                .orElseThrow(NotFound404Exception::new);
     }
 
     @PutMapping("/{id}")
@@ -63,7 +63,7 @@ public class StudenteController
                     studente.setCell(studenteUpdated.getCell());
                     return studenteRepository.save(studente);
                 })
-                .orElseThrow(() -> new NotFound404Exception());
+                .orElseThrow(NotFound404Exception::new);
     }
 
     @DeleteMapping("/{id}")
@@ -76,6 +76,12 @@ public class StudenteController
     public List<Studente> getStudentiByCorsoId(@PathVariable Long idCorso)
     {
         return this.studentiService.findIscrittiByCorsoId(idCorso);
+    }
+
+    @GetMapping("/nomecognome")
+    public List<Studente> getStudentiByNomeCognome(@RequestParam String nomeCognome)
+    {
+        return this.studentiService.findStudentiByNomeCognome(nomeCognome);
     }
 
 }
